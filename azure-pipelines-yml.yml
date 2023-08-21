@@ -18,9 +18,6 @@ resources:
         ACCEPT_EULA: y
       ports:
         - 1444:1433
-          
-services:
-  wtmp-mssql-docker-db: wtmp-mssql-docker-db
   
 stages:
   - stage: 'Test_container'
@@ -30,6 +27,8 @@ stages:
         displayName: 'Test_container'
         pool:
           vmImage: 'ubuntu-latest'
+        services:
+          wtmp-mssql-docker-db: wtmp-mssql-docker-db
         
         steps:
           - task: PowerShell@2
