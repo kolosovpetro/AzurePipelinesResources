@@ -19,7 +19,13 @@ resources:
         ACCEPT_EULA: y
       ports:
         - 1444:1433
-  
+
+    - container: azurite
+      image: mcr.microsoft.com/azure-storage/azurite
+      ports:
+        - 10000:10000
+        - 10001:10001
+
 stages:
   - stage: 'Test_container'
     displayName: 'Test_container'
@@ -30,6 +36,7 @@ stages:
           vmImage: 'ubuntu-latest'
         services:
           wtmp-mssql-docker-db: wtmp-mssql-docker-db
+          azurite: azurite
         
         steps:
           - task: PowerShell@2
