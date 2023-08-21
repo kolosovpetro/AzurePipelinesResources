@@ -18,7 +18,10 @@ resources:
         ACCEPT_EULA: y
       ports:
         - 1444:1433
-
+          
+services:
+  wtmp-mssql-docker-db: wtmp-mssql-docker-db
+  
 stages:
   - stage: 'Test_container'
     displayName: 'Test_container'
