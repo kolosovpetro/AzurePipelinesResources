@@ -22,9 +22,10 @@ resources:
 
     - container: azurite
       image: mcr.microsoft.com/azure-storage/azurite
+      options: '--name wtmp-azure-blob'
       ports:
-        - 10000:10000
-        - 10001:10001
+        - 127.0.0.1:10000:10000
+        - 127.0.0.1:10001:10001
 
 stages:
   - stage: 'Test_container'
@@ -45,3 +46,9 @@ stages:
             inputs:
               targetType: 'inline'
               script: ./wait_database.ps1
+              
+          - task: PowerShell@2
+            displayName: 'Docker logs azure'
+            inputs:
+              targetType: 'inline'
+              script: docker logs wtmp-azure-blob
