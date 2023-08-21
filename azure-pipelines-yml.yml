@@ -1,0 +1,37 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - '*'
+
+resources:
+  containers:
+    - container: wtmp-mssql-docker-db
+      image: mcr.microsoft.com/mssql/server:2019-latest
+      env:
+        SA_PASSWORD: x2yiJt!Fs
+        ACCEPT_EULA: y
+      ports:
+        - 1444:1433
+
+stages:
+  - stage: 'Test_container'
+    displayName: 'Test_container'
+    jobs:
+      - job: 'Test_container'
+        displayName: 'Test_container'
+        pool:
+          vmImage: 'ubuntu-latest'
+        
+        steps:
+          - task: PowerShell@2
+            displayName: 'Wait for container'
+            timeoutInMinutes: 5
+            inputs:
+              targetType: 'inline'
+              script: ./wait_database.ps1
