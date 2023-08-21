@@ -13,6 +13,7 @@ resources:
   containers:
     - container: wtmp-mssql-docker-db
       image: mcr.microsoft.com/mssql/server:2019-latest
+      options: '--name wtmp-mssql-docker-db'
       env:
         SA_PASSWORD: x2yiJt!Fs
         ACCEPT_EULA: y
